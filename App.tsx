@@ -25,7 +25,9 @@ import { Button } from './components/Button';
 const DEFAULT_MARKDOWN = `
 # MathBridge
 
-Dán công thức AI (kể cả dạng text lỗi) vào bên trái, bấm **"Smart Convert"** để sửa lỗi.
+Dán công thức bình thường thì nhớ thêm **$$** ở 2 đầu nhé.
+
+Dán công thức (kể cả dạng text lỗi), bấm **"Smart Convert"** để sửa lỗi.
 
 Ví dụ Output MathML:
 $$
@@ -232,7 +234,7 @@ export default function App() {
               value={markdown}
               onChange={(e) => setMarkdown(e.target.value)}
               className="flex-1 w-full h-full p-6 bg-transparent text-zinc-300 font-mono text-sm resize-none focus:outline-none leading-relaxed"
-              placeholder="Paste text loằng ngoằng vào đây rồi bấm 'Smart Convert'..."
+              placeholder="Paste công thức vào thì nhớ thêm '$$' ở 2 đầu công thức nhé hoặc paste text loằng ngoằng vào đây rồi bấm 'Smart Convert'..."
               spellCheck={false}
             />
           </div>
@@ -286,7 +288,7 @@ export default function App() {
               </div>
               
               <p className="text-zinc-400 text-sm mb-4">
-                Describe the formula you need, or paste a broken raw text, and AI will convert it to clean LaTeX.
+                Hãy mô tả công thức bạn cần, hoặc dán một đoạn văn bản thô bị lỗi, và AI sẽ chuyển đổi nó thành định dạng LaTeX hoàn chỉnh.
               </p>
 
               <textarea
