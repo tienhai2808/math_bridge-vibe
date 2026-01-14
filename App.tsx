@@ -286,7 +286,7 @@ export default function App() {
               value={markdown}
               onChange={(e) => setMarkdown(e.target.value)}
               className="flex-1 w-full h-full p-4 md:p-6 bg-transparent text-zinc-300 font-mono text-sm resize-none focus:outline-none leading-relaxed"
-              placeholder="Paste công thức vào thì nhớ thêm '$$' ở 2 đầu..."
+              placeholder="Dán công thức vào thì nhớ thêm '$$' ở 2 đầu công thức nhé hoặc dán text loằng ngoằng vào đây rồi bấm 'Smart Convert'..."
               spellCheck={false}
             />
           </div>
