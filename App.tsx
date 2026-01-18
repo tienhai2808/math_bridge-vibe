@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -6,7 +6,6 @@ import {
   Split,
   Eye,
   Edit3,
-  Copy,
   Image as ImageIcon,
   Wand2,
   RefreshCw,
@@ -15,11 +14,9 @@ import {
   FileText,
   Code2,
   Sparkles,
-  Menu, // Thêm icon nếu cần menu mobile, nhưng ở đây ta dùng layout adaptive
 } from "lucide-react";
 import { ViewMode, Toast } from "./types";
 import {
-  cleanLatex,
   copyNodeAsImage,
   copyToClipboard,
   extractAndCopyMathML,
@@ -27,11 +24,10 @@ import {
 import { generateMathFromPrompt } from "./services/geminiService";
 import { Button } from "./components/Button";
 
-// Default prompt with example
 const DEFAULT_MARKDOWN = `
 # MathBridge
 
-Dán công thức bình thường thì nhớ thêm **$$** ở 2 đầu nhé.
+Dán công thức bình thường thì nhớ thêm **"$$"** ở 2 đầu nhé.
 
 Dán công thức (kể cả dạng text lỗi), bấm **"Smart Convert"** để sửa lỗi.
 
@@ -130,14 +126,12 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-screen bg-zinc-950 text-zinc-100 font-sans overflow-hidden">
-      {/* Header - Compact on Mobile */}
       <header className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-md z-10 shrink-0">
         <div className="flex items-center gap-3">
           <div>
             <h1 className="font-bold text-base md:text-lg text-white">
               MathBridge
             </h1>
-            {/* Ẩn description trên mobile để gọn */}
             <p className="hidden sm:block text-xs text-zinc-400">
               Word MathML & Image Converter
             </p>
@@ -145,7 +139,6 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* View Modes Container */}
           <div className="bg-zinc-800/50 p-1 rounded-lg border border-zinc-700 flex gap-1 mr-2 md:mr-4">
             <button
               onClick={() => setViewMode(ViewMode.Edit)}
@@ -189,14 +182,12 @@ export default function App() {
             onClick={() => setShowAiModal(true)}
             className="whitespace-nowrap"
           >
-            {/* Trên mobile chỉ hiện icon, desktop hiện chữ */}
             <span className="hidden sm:inline">Create New</span>
             <span className="sm:hidden">New</span>
           </Button>
         </div>
       </header>
 
-      {/* Toolbar - Scrollable on mobile + Icon only labels */}
       <div className="flex items-center justify-between gap-4 px-4 py-2 md:px-6 md:py-3 bg-zinc-900 border-b border-zinc-800 shrink-0 overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-2 shrink-0">
           <Button
@@ -266,17 +257,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* Main Content - Smart Responsive Layout */}
-      {/* Mobile: flex-col (dọc), Desktop: flex-row (ngang) khi ở Split mode */}
       <main className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
-        {/* Editor Pane */}
         {(viewMode === ViewMode.Split || viewMode === ViewMode.Edit) && (
           <div
             className={`
             flex-1 flex flex-col bg-zinc-950
             ${
               viewMode === ViewMode.Split
-                ? "w-full h-1/2 lg:w-1/2 lg:h-full border-b lg:border-b-0 lg:border-r border-zinc-800" // Mobile: Full width/Half height. Desktop: Half width/Full height
+                ? "w-full h-1/2 lg:w-1/2 lg:h-full border-b lg:border-b-0 lg:border-r border-zinc-800"
                 : "w-full h-full"
             }
           `}
@@ -292,7 +280,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Preview Pane */}
         {(viewMode === ViewMode.Split || viewMode === ViewMode.Preview) && (
           <div
             className={`
@@ -338,7 +325,6 @@ export default function App() {
         )}
       </main>
 
-      {/* AI Modal - Responsive Width & Margin */}
       {showAiModal && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200 mx-4">
@@ -390,7 +376,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Toast - Adjusted position for mobile */}
       <div className="fixed bottom-4 right-4 left-4 md:left-auto md:bottom-6 md:right-6 z-50 flex flex-col gap-2 pointer-events-none">
         {toasts.map((toast) => (
           <div
